@@ -1,0 +1,15 @@
+<%- include('../partials/header', { title }) %>
+<section class="auth-shell">
+  <h1>Krijo llogari përdoruesi</h1>
+  <% if (error) { %><p class="auth-error"><%= error %></p><% } %>
+  <form method="post" action="/register" class="auth-form">
+    <label for="name">Emri</label>
+    <input id="name" name="name" type="text" maxlength="150" required autocomplete="name">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" maxlength="190" required autocomplete="email">
+    <label for="password">Fjalëkalimi (së paku 8 karaktere)</label>
+    <input id="password" name="password" type="password" minlength="8" maxlength="200" required autocomplete="new-password">
+    <button class="btn btn-details" type="submit">Regjistrohu</button>
+  </form>
+</section>
+<%- include('../partials/footer') %>

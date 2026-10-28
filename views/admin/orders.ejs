@@ -1,0 +1,50 @@
+<%- include('../partials/header', { title }) %>
+
+<section class="admin-dashboard">
+  <div class="admin-heading">
+    <div>
+      <p class="page-heading__eyebrow">Hapësira e administratorit</p>
+      <h1 class="page-heading__title">Porositë</h1>
+      <p class="admin-heading__sub">Menaxho porositë e bëra nga klientët e Phone Store.</p>
+    </div>
+    <a href="/phones/create" class="btn btn-update admin-add">+ Shto produkt</a>
+  </div>
+
+  <div class="admin-stats">
+    <article class="stat-card"><span>Gjithsej porosi</span><strong><%= stats.total_orders %></strong><small>Porosi të regjistruara</small></article>
+    <article class="stat-card"><span>Të ardhurat</span><strong><%= Number(stats.total_revenue).toFixed(2) %> <small>EUR</small></strong><small>Vlera totale e porosive</small></article>
+    <article class="stat-card"><span>Sot</span><strong><%= stats.today_orders %></strong><small>Porosi të reja sot</small></article>
+    <article class="stat-card"><span>Mesatarja</span><strong><%= Number(stats.average_order).toFixed(2) %> <small>EUR</small></strong><small>Vlera mesatare për porosi</small></article>
+  </div>
+
+  <div class="orders-section-heading">
+    <div><h2>Porositë e fundit</h2><p><%= orders.length %> porosi në listë</p></div>
+    <a href="/" class="orders-back-link">Shiko dyqanin <span aria-hidden="true">→</span></a>
+  </div>
+
+  <% if (orders.length) { %>
+    <div class="orders-list">
+      <% orders.forEach((order) => { %>
+        <article class="order-card">
+          <div class="order-card__top">
+            <div class="order-reference"><span class="order-icon" aria-hidden="true">#</span><div><strong>Porosia #<%= order.id %></strong><small><%= new Date(order.created_at).toLocaleString('sq-AL', { dateStyle: 'medium', timeStyle: 'short' }) %></small></div></div>
+            <span class="order-status"><i></i> E regjistruar</span>
+          </div>
+          <div class="order-card__content">
+            <section class="order-customer"><h3>Klienti</h3><strong><%= order.customer_name %></strong><a href="mailto:<%= order.customer_email %>"><%= order.customer_email %></a><a href="tel:<%= order.customer_phone %>"><%= order.customer_phone %></a><p><%= order.customer_address %></p></section>
+            <section class="order-products"><h3>Produktet</h3>
+              <% order.items.forEach((item) => { %>
+                <div class="order-product"><div><strong><%= item.name %></strong><small><%= item.capacity %> · <%= item.color %> · Sasia: <%= item.quantity %></small></div><span><%= (Number(item.unit_price) * Number(item.quantity)).toFixed(2) %> EUR</span></div>
+              <% }) %>
+            </section>
+          </div>
+          <div class="order-card__bottom"><span>Totali i porosisë</span><strong><%= Number(order.total).toFixed(2) %> EUR</strong></div>
+        </article>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="orders-empty"><span aria-hidden="true">⌑</span><h2>Ende nuk ka porosi</h2><p>Kur klientët të bëjnë porosi, ato do të shfaqen këtu.</p><a href="/" class="btn btn-details">Kthehu te dyqani</a></div>
+  <% } %>
+</section>
+
+<%- include('../partials/footer') %>

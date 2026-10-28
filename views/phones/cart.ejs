@@ -1,0 +1,37 @@
+<%- include('../partials/header', { title }) %>
+
+<section class="cart-page">
+  <h1>Shporta ime</h1>
+  <div data-cart-items></div>
+  <p class="cart-total">Totali: <strong data-cart-total>0.00 EUR</strong></p>
+  <% if (currentUser) { %>
+    <button type="button" class="btn btn-cart" data-checkout>Vazhdo te porosia</button>
+  <% } else { %>
+    <p>Hyr ose krijo llogari për të vazhduar me porosinë.</p>
+    <a href="/login?next=/cart" class="btn btn-cart">Hyr për të porositur</a>
+    <a href="/register" class="btn btn-details">Regjistrohu</a>
+  <% } %>
+  <p data-checkout-message role="status"></p>
+  <a href="/" class="btn btn-details">Vazhdo blerjet</a>
+</section>
+
+<dialog class="checkout-dialog" data-checkout-dialog>
+  <form data-checkout-form>
+    <h2>Të dhënat për porosinë</h2>
+    <label for="customer-name">Emri dhe mbiemri</label>
+    <input id="customer-name" name="customerName" type="text" required maxlength="150" autocomplete="name" />
+    <label for="customer-email">Email</label>
+    <input id="customer-email" name="customerEmail" type="email" required maxlength="190" autocomplete="email" />
+    <label for="customer-phone">Telefoni</label>
+    <input id="customer-phone" name="customerPhone" type="tel" required maxlength="40" autocomplete="tel" />
+    <label for="customer-address">Adresa</label>
+    <textarea id="customer-address" name="customerAddress" required maxlength="500" autocomplete="street-address"></textarea>
+    <p class="checkout-error" data-checkout-error role="alert"></p>
+    <div class="checkout-dialog__actions">
+      <button type="button" class="btn btn-delete" data-checkout-cancel>Anulo</button>
+      <button type="submit" class="btn btn-cart" data-checkout-submit>Porosit</button>
+    </div>
+  </form>
+</dialog>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,22 @@
+<%- include('../partials/header', { title }) %>
+<section class="role-choice">
+  <div class="role-choice__heading">
+    <p class="page-heading__eyebrow">Mirë se erdhe në Phone Store</p>
+    <h1>Zgjidh si dëshiron të hysh</h1>
+    <p>Hyr si përdorues për të parë dhe porositur telefona, ose si administrator për t’i menaxhuar.</p>
+  </div>
+  <div class="role-choice__cards">
+    <article class="role-card">
+      <h2>Përdorues</h2>
+      <p>Shiko telefonat dhe bëj porosi.</p>
+      <a href="/login?role=user" class="btn btn-details">Vazhdo si përdorues</a>
+      <a href="/register" class="role-card__secondary">Krijo llogari të re</a>
+    </article>
+    <article class="role-card">
+      <h2>Administrator</h2>
+      <p>Shto telefona të rinj dhe përditëso ose fshi produktet.</p>
+      <a href="/login?role=admin" class="btn btn-update">Hyr si admin</a>
+    </article>
+  </div>
+</section>
+<%- include('../partials/footer') %>

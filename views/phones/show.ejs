@@ -1,0 +1,57 @@
+<%- include('../partials/header', { title }) %>
+
+<section class="detail-shell">
+  <div class="detail-header">
+    <a href="/" class="detail-back">&larr; Kthehu te lista</a>
+    <p class="page-heading__eyebrow mb-0">Detajet e celularit</p>
+    <h1 class="page-heading__title"><%= phone.name %></h1>
+  </div>
+
+  <div class="detail-layout">
+    <div class="detail-image-panel">
+      <% if (phone.image_url) { %>
+        <img src="<%= phone.image_url %>" class="detail-image" alt="<%= phone.name %>" />
+      <% } else { %>
+        <div class="detail-image detail-image--placeholder">Pa foto</div>
+      <% } %>
+    </div>
+
+    <div class="detail-info-panel">
+      <p class="detail-price"><%= Number(phone.price).toFixed(2) %> EUR</p>
+
+      <dl class="detail-specs">
+        <div class="detail-spec-row">
+          <dt>Emri</dt>
+          <dd><%= phone.name %></dd>
+        </div>
+        <div class="detail-spec-row">
+          <dt>Çmimi</dt>
+          <dd><%= Number(phone.price).toFixed(2) %> EUR</dd>
+        </div>
+        <div class="detail-spec-row">
+          <dt>Kapaciteti</dt>
+          <dd><%= phone.capacity %></dd>
+        </div>
+        <div class="detail-spec-row">
+          <dt>Ngjyra</dt>
+          <dd><%= phone.color %></dd>
+        </div>
+        <% if (phone.image_url && currentUser && currentUser.role === 'admin') { %>
+          <div class="detail-spec-row">
+            <dt>URL e fotos</dt>
+            <dd class="detail-url"><%= phone.image_url %></dd>
+          </div>
+        <% } %>
+      </dl>
+
+      <% if (currentUser && currentUser.role === 'admin') { %>
+        <div class="detail-actions">
+          <a href="/phones/<%= phone.id %>/edit" class="btn btn-update">Përditëso</a>
+          <a href="/phones/<%= phone.id %>/delete" class="btn btn-delete">Fshije</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

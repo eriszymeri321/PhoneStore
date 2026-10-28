@@ -1,0 +1,19 @@
+<%- include('../partials/header', { title }) %>
+<section class="auth-shell">
+  <p class="page-heading__eyebrow"><%= loginAs === 'admin' ? 'Menaxhimi i dyqanit' : 'Mirë se u ktheve' %></p>
+  <h1><%= loginAs === 'admin' ? 'Hyr si administrator' : 'Kyçu në Phone Store' %></h1>
+  <p class="login-intro"><%= loginAs === 'admin' ? 'Hyr në panel për të parë porositë dhe menaxhuar produktet.' : 'Kyçu për të vazhduar me porosinë tënde.' %></p>
+  <% if (error) { %><p class="auth-error"><%= error %></p><% } %>
+  <% if (registered) { %><p>Llogaria u krijua. Tani mund të hysh.</p><% } %>
+  <form method="post" action="/login" class="auth-form">
+    <input type="hidden" name="next" value="<%= next %>">
+    <input type="hidden" name="loginAs" value="<%= loginAs %>">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required autocomplete="email">
+    <label for="password">Fjalëkalimi</label>
+    <input id="password" name="password" type="password" required autocomplete="current-password">
+    <button class="btn btn-details" type="submit">Hyr</button>
+  </form>
+  <% if (loginAs === 'user') { %><p class="login-footnote">Nuk ke llogari? <a href="/register">Regjistrohu</a></p><p class="login-admin-link"><a href="/login?role=admin">Hyr si administrator</a></p><% } else { %><p class="login-admin-link"><a href="/login">Kthehu te hyrja e klientit</a></p><% } %>
+</section>
+<%- include('../partials/footer') %>

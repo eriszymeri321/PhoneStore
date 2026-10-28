@@ -1,0 +1,69 @@
+<%- include('../partials/header', { title, search }) %>
+
+<section class="store-hero">
+  <div class="store-hero__copy"><p class="page-heading__eyebrow">Gjenerata e re, një klik larg</p><h1>Gjej telefonin<br><span>që të përshtatet.</span></h1><p>Modelet më të kërkuara, detajet që të duhen dhe porosia jote në një vend.</p><a class="btn btn-cart" href="#products">Eksploro koleksionin <span aria-hidden="true">→</span></a><div class="store-hero__note"><span>✦</span> Zgjedhje të mençura. Teknologji e përditshme.</div></div>
+  <div class="store-hero__visual" aria-hidden="true"><div class="hero-orbit hero-orbit--one"></div><div class="hero-orbit hero-orbit--two"></div><div class="hero-phone"><div class="hero-phone__camera"></div><div class="hero-phone__glow"></div></div><span class="hero-chip hero-chip--top">01 / COLLECTION</span><span class="hero-chip hero-chip--bottom">SIMPLE. SMART. YOURS.</span></div>
+</section>
+
+<% if (typeof success !== 'undefined' && success) { %>
+  <div class="alert alert-success app-alert" role="alert">
+    <% if (success === 'created') { %>Telefoni u shtua me sukses.<% } %>
+    <% if (success === 'updated') { %>Ndryshimet u ruajten me sukses.<% } %>
+    <% if (success === 'deleted') { %>Telefoni u fshi me sukses.<% } %>
+  </div>
+<% } %>
+
+<% if (phones.length > 0) { %>
+  <section class="catalog-heading" id="products"><div><p class="page-heading__eyebrow">Koleksioni ynë</p><h2>Telefonat më të rinj</h2></div><span><%= phones.length %> produkte</span></section>
+  <section class="product-carousel" aria-label="Lista e telefonave">
+    <div class="product-track">
+      <% phones.forEach((phone) => { %>
+        <article class="product-card">
+          <h2 class="product-name"><%= phone.name %></h2>
+
+          <div class="product-image-wrap">
+            <% if (phone.image_url) { %>
+              <img src="<%= phone.image_url %>" class="product-image" alt="<%= phone.name %>" loading="lazy" />
+            <% } else { %>
+              <div class="product-image product-image--placeholder">Pa foto</div>
+            <% } %>
+          </div>
+
+          <% if (currentUser && currentUser.role === 'admin') { %>
+            <a href="/phones/<%= phone.id %>/edit" class="btn btn-update">Përditëso</a>
+          <% } %>
+
+          <hr class="product-divider" />
+
+          <ul class="product-specs">
+            <li><span>Çmimi:</span> <%= Number(phone.price).toFixed(2) %> EUR</li>
+            <li><span>Kapaciteti:</span> <%= phone.capacity %></li>
+            <li><span>Ngjyra:</span> <%= phone.color %></li>
+          </ul>
+
+          <div class="product-actions">
+            <% if (!currentUser || currentUser.role === 'user') { %>
+              <button type="button" class="btn btn-cart" data-add-to-cart
+                data-id="<%= phone.id %>" data-name="<%= phone.name %>"
+                data-price="<%= phone.price %>" data-capacity="<%= phone.capacity %>"
+                data-color="<%= phone.color %>" data-image="<%= phone.image_url || '' %>">Shto në shportë</button>
+            <% } %>
+            <% if (currentUser && currentUser.role === 'admin') { %>
+              <a href="/phones/<%= phone.id %>/delete" class="btn btn-delete">Fshije</a>
+            <% } %>
+            <a href="/phones/<%= phone.id %>" class="btn btn-details">Detajet e celularit</a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+    <button type="button" class="carousel-arrow" aria-hidden="true" tabindex="-1">&rsaquo;</button>
+  </section>
+<% } else { %>
+  <section class="empty-state">
+    <h2 class="empty-state__title">Nuk ka telefona ende</h2>
+    <p class="empty-state__text">Shto telefonin e pare per ta testuar lidhjen me databazen.</p>
+    <% if (currentUser && currentUser.role === 'admin') { %><a href="/phones/create" class="btn btn-update">Shto telefon</a><% } %>
+  </section>
+<% } %>
+
+<%- include('../partials/footer') %>

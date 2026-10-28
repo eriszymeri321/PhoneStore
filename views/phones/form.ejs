@@ -1,0 +1,55 @@
+<%- include('../partials/header', { title }) %>
+
+<section class="form-shell phone-form-shell">
+  <div class="product-form-heading">
+    <div class="product-form-heading__copy">
+      <span class="form-heading-icon" aria-hidden="true">＋</span>
+      <div>
+        <p class="page-heading__eyebrow">Katalogu i produkteve</p>
+        <h1 class="page-heading__title"><%= title %></h1>
+        <p class="page-heading__text">Shto të dhënat e telefonit që klientët ta gjejnë në dyqan.</p>
+      </div>
+    </div>
+    <a href="/" class="btn btn-details">← Kthehu te dyqani</a>
+  </div>
+
+  <form method="post" action="<%= action %>" class="phone-form">
+    <div class="phone-form__field">
+      <label class="form-label" for="name">Emri i telefonit <span>*</span></label>
+      <input id="name" class="form-control" type="text" name="name" maxlength="255" value="<%= phone.name || '' %>" placeholder="p.sh. Apple iPhone 15" required>
+      <% if (errors.name) { %><div class="field-error"><%= errors.name %></div><% } %>
+    </div>
+
+    <div class="phone-form__field">
+      <label class="form-label" for="price">Çmimi <span>*</span></label>
+      <div class="price-input"><input id="price" class="form-control" type="number" name="price" min="0" step="0.01" value="<%= phone.price || '' %>" placeholder="1050.00" required><span>EUR</span></div>
+      <% if (errors.price) { %><div class="field-error"><%= errors.price %></div><% } %>
+    </div>
+
+    <div class="phone-form__field">
+      <label class="form-label" for="capacity">Kapaciteti <span>*</span></label>
+      <input id="capacity" class="form-control" type="text" name="capacity" maxlength="50" value="<%= phone.capacity || '' %>" placeholder="p.sh. 128GB" required>
+      <% if (errors.capacity) { %><div class="field-error"><%= errors.capacity %></div><% } %>
+    </div>
+
+    <div class="phone-form__field">
+      <label class="form-label" for="color">Ngjyra <span>*</span></label>
+      <input id="color" class="form-control" type="text" name="color" maxlength="100" value="<%= phone.color || '' %>" placeholder="p.sh. Black Titanium" required>
+      <% if (errors.color) { %><div class="field-error"><%= errors.color %></div><% } %>
+    </div>
+
+    <div class="phone-form__field phone-form__field--wide">
+      <label class="form-label" for="image_url">Linku i fotos <span class="optional-label">Opsionale</span></label>
+      <input id="image_url" class="form-control" type="url" name="image_url" maxlength="500" value="<%= phone.image_url || '' %>" placeholder="https://example.com/phone.jpg">
+      <small class="form-hint">Përdor një link publik që fillon me https://</small>
+      <% if (errors.image_url) { %><div class="field-error"><%= errors.image_url %></div><% } %>
+    </div>
+
+    <div class="phone-form__actions">
+      <a href="/" class="btn btn-details">Anulo</a>
+      <button type="submit" class="btn btn-primary"><%= buttonText %></button>
+    </div>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

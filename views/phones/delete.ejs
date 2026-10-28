@@ -1,0 +1,14 @@
+<%- include('../partials/header', { title }) %>
+
+<section class="confirm-shell">
+  <p class="page-heading__eyebrow text-danger mb-0">Konfirmim fshirjeje</p>
+  <h1 class="page-heading__title">Fshij telefonin</h1>
+  <p class="page-heading__text mb-4">A je i sigurt qe deshiron ta fshish <strong><%= phone.name %></strong>? Ky veprim nuk mund të kthehet mbrapa.</p>
+
+  <form method="post" action="/phones/<%= phone.id %>/delete" class="d-flex gap-2 flex-wrap">
+    <button type="submit" class="btn btn-danger danger-button">Po, fshije</button>
+    <a href="/" class="btn btn-outline-secondary">Anulo</a>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>
