@@ -1,60 +1,39 @@
 # Phone Store
 
-Phone Store është një dyqan online demonstrues për telefona. Vizitorët mund të shfletojnë dhe kërkojnë produkte pa llogari. Klientët mund t’i shtojnë produktet në shportë dhe kyçen për të dërguar porosinë. Administratori menaxhon katalogun dhe sheh porositë nga paneli i adminit.
+Phone Store is a demonstration e-commerce web application for mobile phones. Visitors can browse and search products without requiring an account. Customers can add items to their shopping cart and log in or register to place an order. Administrators can manage the catalog and view orders through an admin dashboard.
 
-**Përshkrim i shkurtër për GitHub:** Dyqan online për telefona me katalog, shportë, porosi dhe panel administrimi, i ndërtuar me Node.js, Express, MySQL dhe EJS.
+**Short GitHub Description:** E-commerce web application for mobile phones featuring a catalog, shopping cart, order management, and admin dashboard, built with Node.js, Express, MySQL, and EJS.
 
-## Çfarë mund të bëjë aplikacioni
+## Key Features
 
-- Shfaq katalogun e telefonave me çmim, kapacitet, ngjyrë dhe fotografi.
-- Kërkon telefona sipas emrit, kapacitetit ose ngjyrës.
-- Shfaq faqen me hollësi për secilin produkt.
-- Ruajnë shportën në shfletues, edhe para kyçjes.
-- Kërkon kyçje ose regjistrim kur klienti dëshiron të vazhdojë me porosinë.
-- Regjistron porosinë dhe produktet e saj në MySQL. Çmimi merret nga databaza në server.
-- Ofron hyrje me role të ndara për klient dhe administrator.
-- Lejon administratorin të shtojë, përditësojë dhe fshijë telefona.
-- Ofron panel administrimi te `/admin/orders`, ku shfaqen porositë, të dhënat e klientit, artikujt dhe përmbledhja e shitjeve.
+- Displays a phone catalog with pricing, storage capacity, color, and images.
+- Search functionality by phone name, storage capacity, or color.
+- Dedicated product detail pages.
+- Client-side shopping cart persistence in the browser, working even before login.
+- Prompts authentication or registration during the checkout process.
+- Saves orders and order items securely in MySQL, with prices validated server-side from the database.
+- Role-based access control separating customer and administrator privileges.
+- Admin management capabilities to add, update, and delete phone products.
+- Dedicated admin panel at `/admin/orders` displaying customer details, purchased items, and sales summaries.
 
-## Teknologjitë
+## Technologies Used
 
-- Node.js dhe Express
-- MySQL me `mysql2`
-- EJS për faqet dinamike
-- HTML, CSS dhe JavaScript për ndërfaqen dhe shportën
+- **Backend:** Node.js, Express
+- **Database:** MySQL with `mysql2`
+- **Templating Engine:** EJS for dynamic views
+- **Frontend:** HTML, CSS, and JavaScript for user interface and cart logic
 
-## Si funksionon
+## How It Works
 
-Serveri Express merr kërkesat dhe i dërgon te routes. Controllers përpunojnë hyrjen, produktet dhe porositë; modelet komunikojnë me MySQL; EJS i kthen të dhënat në faqe HTML. Shporta ruhet në shfletues. Gjatë checkout-it serveri i kontrollon produktet dhe çmimet në databazë, pastaj ruan porosinë dhe artikujt e saj në një transaksion MySQL.
+The Express server handles incoming requests and routes them appropriately. Controllers process authentication, products, and order logic, models handle database operations with MySQL, and EJS renders data into HTML pages. The shopping cart is managed via browser storage. During checkout, the server validates products and prices against the database, securely saving the order and its items using a MySQL transaction.
 
-## Nisja në kompjuter
+## Getting Started Locally
 
-1. Nise MySQL në XAMPP.
-2. Importo `database.sql` në phpMyAdmin. Importoje vetëm një herë, sepse përmban edhe produkte fillestare.
-3. Kopjo `.env.example` në `.env` dhe vendos të dhënat e lidhjes me databazën. Mund të vendosësh edhe `ADMIN_EMAIL` dhe `ADMIN_PASSWORD` për llogarinë e administratorit.
-4. Instalo paketat dhe nise aplikacionin:
+1. Start MySQL (e.g., via XAMPP).
+2. Import `database.sql` into phpMyAdmin. Import it only once, as it includes initial seed products.
+3. Copy `.env.example` to `.env` and configure your database connection credentials. You can also define `ADMIN_EMAIL` and `ADMIN_PASSWORD` for the administrator account.
+4. Install dependencies and start the application:
 
    ```bash
    npm install
    npm start
-   ```
-
-5. Hape `http://localhost:3000` në shfletues.
-
-Vlerat e databazës në zhvillim mund të ndryshohen në `.env`. Mos e ngarko `.env` në GitHub.
-
-## Publikimi online
-
-Aplikacioni përdor `PORT` nga hosti dhe mund të niset me `npm start`. Për publikim online nevojitet një host që ekzekuton Node.js dhe një databazë MySQL. Në mjedisin production vendos `NODE_ENV=production`, `ADMIN_EMAIL` dhe një `ADMIN_PASSWORD` unik me së paku 16 karaktere, si dhe variablat `DB_HOST`, `DB_USER`, `DB_PASSWORD` dhe `DB_NAME`.
-
-## Struktura kryesore
-
-```text
-config/       Lidhja me MySQL
-controllers/ Logjika e autentikimit dhe dyqanit
-models/      Pyetjet dhe ndryshimet në databazë
-routes/      Rrugët e aplikacionit
-views/       Faqet EJS
-public/      CSS dhe JavaScript për shfletuesin
-database.sql Skema dhe produktet fillestare
-```
